@@ -1,26 +1,133 @@
 @import "tailwindcss";
 
+@theme {
+  /* ── BRAND COLORS ── */
+  --color-brand-magenta: #FF007F;
+  --color-brand-cyan: #00F0FF;
+  --color-brand-yellow: #FFDC00;
+  --color-brand-success: #39FF14;
+  --color-brand-error: #FF3333;
+
+  /* ── UI COLORS ── */
+  --color-background-base: #F8F7FF;
+  --color-background-panel: #FFFFFF;
+  --color-ink-border: #0D0D0D;
+  --color-ink-text: #0D0D0D;
+  --color-shadow: #0D0D0D;
+  --color-overlay: rgba(0, 0, 0, 0.55);
+
+  /* ── FONTS ── */
+  --font-space: var(--font-space);
+  --font-outfit: var(--font-outfit);
+}
+
+/* ── LIGHT MODE overrides (default) ── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-base:    #F8F7FF;
+  --bg-panel:   #FFFFFF;
+  --ink-border: #0D0D0D;
+  --ink-text:   #0D0D0D;
+  --shadow-color: #0D0D0D;
+  --bg-overlay: rgba(0, 0, 0, 0.55);
+  --cyan-tint:    rgba(0,240,255,0.12);
+  --magenta-tint: rgba(255,0,127,0.10);
+  --yellow-tint:  rgba(255,220,0,0.18);
+  --success-tint: rgba(57,255,20,0.10);
+
+  /* Tooltip theming */
+  --tooltip-bg: var(--success-tint);
+  --tooltip-border: var(--color-brand-success);
+  --tooltip-text: var(--color-brand-success);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ── DARK MODE ── */
+[data-theme="dark"] {
+  --bg-base:    #0A0A12;
+  --bg-panel:   #0E0E1B;
+  --ink-border: #D1D1EB;
+  --ink-text:   #F0F0FA;
+  --shadow-color: #000000;
+  --bg-overlay: rgba(0, 0, 0, 0.85);
+  --cyan-tint:    rgba(0,240,255,0.12);
+  --magenta-tint: rgba(255,0,127,0.10);
+  --yellow-tint:  rgba(255,220,0,0.10);
+
+  /* Hover overrides for better visibility */
+  --btn-hover-text: var(--color-brand-cyan);
+
+  /* Override Tailwind theme variables for dark mode */
+  --color-background-base: #0A0A12;
+  --color-background-panel: #0E0E1B;
+  --color-ink-border: #D1D1EB;
+  --color-ink-text: #F0F0FA;
+  --color-shadow: #000000;
+  --color-overlay: rgba(0, 0, 0, 0.85);
+
+  /* Tooltip theming */
+  --tooltip-bg: var(--cyan-tint);
+  --tooltip-border: var(--color-brand-cyan);
+  --tooltip-text: var(--color-brand-cyan);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* selection color */
+::selection {
+  background: var(--color-brand-magenta);
+  color: #fff;
+}
+
+[data-theme="dark"] ::selection {
+  background: var(--color-brand-cyan);
+  color: #000;
+}
+
+* { box-sizing: border-box; }
+html {
+    overflow-x: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--bg-base);
+    color: var(--ink-text);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-space), sans-serif;
+    font-weight: 700;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+/* ── PREMIUM TEXTURES ── */
+.halftone-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.halftone-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--ink-border) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.025; /* Reduced from 0.04 */
+  pointer-events: none;
+  z-index: 0;
+}
+
+.comic-grid {
+  background-image: 
+    linear-gradient(var(--ink-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ink-border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center center;
+  opacity: 0.02; /* Reduced from 0.03 */
+}
+
+.paper-texture {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.015; /* Reduced from 0.02 */
+  mix-blend-mode: multiply;
+  pointer-events: none;
 }

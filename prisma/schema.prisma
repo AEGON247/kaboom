@@ -1,0 +1,34 @@
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "library"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Function {
+  id         String   @id @default(cuid())
+  name       String
+  code       String
+  type       String   @default("snippet")
+  status     String   @default("active")
+  createdAt  DateTime @default(now())
+  endpoint   String?
+  publicUrl  String?
+  githubRepo String?
+  envVars    String?
+  runtimeMeta String?
+  logs       ExecutionLog[]
+}
+
+model ExecutionLog {
+  id         String   @id @default(uuid())
+  functionId String
+  status     Int
+  durationMs Int
+  output     String?
+  timestamp  DateTime @default(now())
+  function   Function @relation(fields: [functionId], references: [id])
+}

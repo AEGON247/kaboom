@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "test-db.js",
+    "scripts/kaboom-zip-invoke.cjs",
   ]),
 ]);
 
