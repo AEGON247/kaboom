@@ -44,3 +44,14 @@ next-env.d.ts
 
 # local deployment artifacts
 /.data/
+
+# Agentic Tools and local files
+implementation_plan.md
+task.md
+walkthrough.md
+.agents/
+.agent/
+.cursorrules
+db-*.js
+test-*.js
+prisma/*.db
