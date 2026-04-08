@@ -34,7 +34,7 @@ if (!fs.existsSync(mainPath)) {
   }
 }
 
-// Still not found? Try any .js file that is NOT from node_modules
+
 if (!fs.existsSync(mainPath)) {
   const rootFiles = fs.readdirSync(root);
   const anyJs = rootFiles.find(f => f.endsWith(".js") && f !== "package.json");
@@ -54,19 +54,19 @@ const req = JSON.parse(process.env.KABOOM_REQ_JSON || "{}");
 
 (async () => {
   try {
-    // Dynamic import for ESM/CJS compatibility. Use file:// URL for Windows.
-    // Add cache-buster to ensure fresh code
+
+
     const fileUrl = pathToFileURL(mainPath).href + "?t=" + Date.now();
     const loaded = await import(fileUrl);
-    
-    function findHandler(obj, depth = 0) {
+
+        function findHandler(obj, depth = 0) {
       if (!obj || depth > 1) return null;
       const candidates = ["handler", "run", "main", "execute", "default"];
-      // Priority 1: Direct function keys (named exports or root)
+
       for (const k of candidates) {
         if (typeof obj[k] === 'function') return obj[k];
       }
-      // Priority 2: Recursively look inside 'default' if it's an object (common for CJS in ESM)
+
       if (obj.default && typeof obj.default === 'object') {
         return findHandler(obj.default, depth + 1);
       }
@@ -90,8 +90,8 @@ const req = JSON.parse(process.env.KABOOM_REQ_JSON || "{}");
       const allFuncs = getAllFuncs(loaded);
       const isReactOrFrontend = JSON.stringify(loaded).includes("react") || mainPath.includes("src/");
       let diagMsg = `Module must export a function (tried handler, run, main, execute, default). Found functions: [${allFuncs.join(', ') || 'none'}].`;
-      
-      if (isReactOrFrontend && allFuncs.length === 0) {
+
+            if (isReactOrFrontend && allFuncs.length === 0) {
         diagMsg += `\nWARNING: Kaboom is a serverless backend platform. It appears you uploaded frontend client code (e.g. React). You must export an HTTP handler function to deploy a gadget.`;
       } else {
         diagMsg += ` Ensure you export your handler function correctly.`;

@@ -106,7 +106,7 @@ async function runInvocation(req: Request, id: string) {
         handler = moduleObj.exports as (...args: unknown[]) => unknown;
       } catch (err: any) {
         if (err instanceof SyntaxError && err.message.includes("Cannot use import statement outside a module")) {
-          // Fallback to Dynamic Data URI Import for ESM snippets
+
           const encoded = Buffer.from(row.code).toString('base64');
           const dataUrl = `data:text/javascript;base64,${encoded}`;
           const imported = await import(dataUrl);

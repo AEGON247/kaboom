@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const repo = searchParams.get('repo'); // e.g. "vercel/next.js"
+  const repo = searchParams.get('repo'); 
 
   if (!repo || !repo.includes('/')) {
     return NextResponse.json({ error: 'Invalid repo format. Use "owner/repo".' }, { status: 400 });
@@ -10,7 +10,7 @@ export async function GET(req: Request) {
 
   const [owner, name] = repo.split('/');
 
-  // List of paths and branches to try fetching
+
   const branches = ['main', 'master', 'dev', 'develop'];
   const paths = [
     'index.js',
@@ -37,13 +37,13 @@ export async function GET(req: Request) {
           'User-Agent': 'KABOOM-Deploy/1.0',
           'Accept': 'text/plain',
         },
-        // Low timeout to fail fast and move to next
+
         signal: AbortSignal.timeout(3000),
       });
 
       if (res.ok) {
         const code = await res.text();
-        // Basic sanity: must be at least a few characters
+
         if (code.length > 20) {
           const parts = url.split('/');
           const branch = parts[5];
@@ -59,7 +59,7 @@ export async function GET(req: Request) {
         }
       }
     } catch {
-      // try next candidate
+
     }
   }
 

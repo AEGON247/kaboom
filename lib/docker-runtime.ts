@@ -62,7 +62,7 @@ export async function dockerRemoveForce(name: string): Promise<void> {
   try {
     await execFileAsync("docker", ["rm", "-f", name], { timeout: 60_000 });
   } catch {
-    // ignore
+
   }
 }
 

@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import path from "path";
 
-// Ensure DATABASE_URL is absolute for SQLite and points to the /prisma folder
-// matching Prisma's standard resolution from the schema directory.
+
+
 let databaseUrl = process.env.DATABASE_URL;
 if (databaseUrl?.startsWith("file:./")) {
   const dbFile = databaseUrl.replace("file:./", "");

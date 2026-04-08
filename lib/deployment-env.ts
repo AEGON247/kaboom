@@ -2,7 +2,7 @@ import { parse } from "dotenv";
 
 export type EnvPair = { key: string; value: string };
 
-/** Parse a .env file body (same rules as dotenv). */
+
 export function parseEnvFile(text: string): Record<string, string> {
   const buf = Buffer.from(text, "utf8");
   return parse(buf);
@@ -18,10 +18,10 @@ export function envPairsToRecord(pairs: EnvPair[]): Record<string, string> {
   return out;
 }
 
-/**
- * Runtime env for user code: deployment vars override a small platform baseline (Vercel-style).
- * Host secrets are not forwarded wholesale.
- */
+
+
+
+
 export function buildProcessEnvForDeployment(
   deployment: Record<string, string>
 ): NodeJS.ProcessEnv {

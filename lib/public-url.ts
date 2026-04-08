@@ -1,6 +1,6 @@
-/**
- * Build the externally reachable origin for this request (Vercel-style forwarded headers).
- */
+
+
+
 export function getPublicOrigin(req: Request): string {
   const host =
     req.headers.get("x-forwarded-host")?.split(",")[0]?.trim() ||

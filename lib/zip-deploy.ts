@@ -16,8 +16,7 @@ export async function extractZipTo(buffer: Buffer, destDir: string): Promise<voi
   const zip = new AdmZip(buffer);
   zip.extractAllTo(destDir, true);
 
-  // Flattening Logic: If the zip only contains one directory (e.g. zipped a folder instead of its contents)
-  // Ignore system files like __MACOSX or .DS_Store
+
   const items = (await fs.readdir(destDir)).filter(i => i !== "__MACOSX" && i !== ".DS_Store");
   if (items.length === 1) {
     const singleDirPath = path.join(destDir, items[0]);
@@ -27,8 +26,8 @@ export async function extractZipTo(buffer: Buffer, destDir: string): Promise<voi
       for (const subItem of subItems) {
         await fs.rename(path.join(singleDirPath, subItem), path.join(destDir, subItem));
       }
-      // Note: We don't rmdir if it has leftover junk, but we moved the important stuff.
-      // But for completeness:
+
+
       await fs.rm(singleDirPath, { recursive: true, force: true });
     }
   }

@@ -4,8 +4,8 @@ const path = require('path');
 async function test() {
   const dbUrl = "file:C:/dev/WT_Track/wt_track/prisma/dev.db";
   console.log('Testing with Prisma Client on path:', dbUrl);
-  
-  const prisma = new PrismaClient({
+
+    const prisma = new PrismaClient({
     datasourceUrl: dbUrl,
     log: ['query', 'info', 'warn', 'error'],
   });

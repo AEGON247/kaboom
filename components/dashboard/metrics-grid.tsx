@@ -35,7 +35,7 @@ export function MetricsGrid({
   avgLatency: string, 
   status: string 
 }) {
-  // Simulate some sparkline data
+
   const cpuData = Array.from({ length: 12 }, () => Math.floor(Math.random() * 40) + 10);
   const memData = Array.from({ length: 12 }, () => Math.floor(Math.random() * 20) + 60);
 

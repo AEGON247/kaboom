@@ -18,7 +18,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Gadget not found" }, { status: 404 });
     }
 
-    // Attempt to purge extraction directory if it exists
+
     try {
       if (fn.runtimeMeta) {
         const meta = JSON.parse(fn.runtimeMeta);
@@ -30,7 +30,7 @@ export async function DELETE(
       console.error("Failed to purge extraction dir:", e);
     }
 
-    // Delete from DB (cascade logs if they are linked, let's check prisma schema)
+
     await prisma.function.delete({
       where: { id },
     });
